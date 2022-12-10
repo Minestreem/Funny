@@ -1,0 +1,14 @@
+{
+    "questions": [
+        "What is your name?",
+        "How are you?",
+        "What is the weather like today?",
+        "Test"
+    ],
+    "responses": [
+        "My name is Assistant.",
+        "I am a text-based AI assistant and do not have feelings or emotions.",
+        "I am not able to access weather information because I am a text-based AI assistant.",
+        "I'm working!"
+    ]
+}

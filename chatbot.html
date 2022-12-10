@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <form>
+        <label for="user-input">Enter your message here:</label><br>
+        <input type="text" id="user-input"><br>
+        <button type="submit">Send</button>
+    </form>
+    <div id="chatbot-response"></div>
+    <script>
+        // Get a reference to the form and the input field
+        const form = document.querySelector('form');
+        const input = document.querySelector('#user-input');
+
+        // This function is called when the user submits the form
+        function handleSubmit(event) {
+            // Prevent the page from refreshing when the form is submitted
+            event.preventDefault();
+
+            // Get the user's input
+            const userInput = input.value;
+
+            // Clear the input field
+            input.value = '';
+
+            // Fetch the questions and responses from the server as a JSON object
+            fetch('/questions-and-responses.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Generate a response from the chatbot using the fetched data
+                    const response = generateResponse(userInput, data.questions, data.responses);
+
+                    // Get a reference to the element where the chatbot's response will be displayed
+                    const responseElement = document.querySelector('#chatbot-response');
+
+                    // Add the chatbot's response to the page
+                    responseElement.innerHTML = response;
+                });
+        }
+
+        // This function generates a response from the chatbot
+        function generateResponse(userInput, questions, responses) {
+            // Find the index of the question that matches the user's input
+            const questionIndex = questions.indexOf(userInput);
+
+            // Return the corresponding response
+            return responses[questionIndex];
+        }
+
+        // Add an event listener to the form to handle form submission
+        form.addEventListener('submit', handleSubmit);
+
+            // Get a reference to the button
+    const button = document.querySelector('button');
+
+// This function is called when the button is clicked
+function handleClick() {
+    // Add the "clicked" class to the button to apply the pressed button style
+    button.classList.add('clicked');
+
+    // Remove the "clicked" class from the button after a short delay
+    setTimeout(() => {
+        button.classList.remove('clicked');
+    }, 100);
+}
+
+// Add an event listener to the button to handle button clicks
+button.addEventListener('click', handleClick);
+    </script>
+    <style>
+        #user-input {
+            /* Use the Google searchbar font */
+            font-family: 'Roboto', sans-serif;
+    
+            /* Make the input field wider */
+            width: 500px;
+    
+            /* Add a bit of padding to the input field */
+            padding: 10px;
+    
+            /* Round the corners of the input field */
+            border-radius: 5px;
+    
+            /* Add a grey border to the input field */
+            border: 1px solid #ccc;
+        }
+        
+        button {
+        /* Use the Google Material Design font */
+        font-family: 'Roboto', sans-serif;
+
+        /* Use the Google Material Design button style */
+        background-color: #2196f3;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+
+        /* Add a hover effect to the button */
+        transition: box-shadow 0.2s;
+    }
+
+    button:hover {
+        /* Use the Google Material Design hover button style */
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* This style will be applied to the button when it is clicked */
+    button.clicked {
+        /* Use the Google Material Design pressed button style */
+        background-color: #0d47a1;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    </style>
+    
+    
+</body>
+</html>
